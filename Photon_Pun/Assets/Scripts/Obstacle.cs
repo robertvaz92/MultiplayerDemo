@@ -1,8 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Photon.Pun;
-
 
 public class Obstacle : MonoBehaviour
 {
@@ -10,20 +8,18 @@ public class Obstacle : MonoBehaviour
     Transform m_objTrans;
     Vector3 m_pos;
     bool m_isActivated = false;
-    PhotonView m_view;
 
     public void Initialize(ObstacleManager manager)
     {
         m_manager = manager;
         m_objTrans = transform;
-        m_view = GetComponent<PhotonView>();
-        m_view.RPC("DisableObject", RpcTarget.All);
+        DisableObject();
     }
 
     public void Activate()
     {
         m_isActivated = true;
-        m_view.RPC("EnableObject", RpcTarget.All);
+        EnableObject();
     }
 
     public void CustomUpdate()
@@ -38,22 +34,17 @@ public class Obstacle : MonoBehaviour
             {
                 m_isActivated = false;
                 m_manager.PoolObstacle(this);
-                m_view.RPC("DisableObject", RpcTarget.All);
+                DisableObject();
             }
         }
     }
 
-    [PunRPC]
     void EnableObject()
     {
         gameObject.SetActive(true);
     }
-    [PunRPC]
     void DisableObject()
     {
         gameObject.SetActive(false);
     }
-
-    
-
 }

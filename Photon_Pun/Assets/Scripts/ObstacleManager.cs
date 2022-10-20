@@ -19,7 +19,8 @@ public class ObstacleManager : MonoBehaviour
 
     void CreateObstacle()
     {
-        GameObject m_obstacle = PhotonNetwork.Instantiate(m_obstaclePrefab.name, new Vector3(0, -4.5f, 0), Quaternion.identity);
+        //GameObject m_obstacle = PhotonNetwork.Instantiate(m_obstaclePrefab.name, new Vector3(0, -4.5f, 0), Quaternion.identity);
+        GameObject m_obstacle = Instantiate(m_obstaclePrefab.gameObject, new Vector3(0, 6f, 0), Quaternion.identity);
         Obstacle obs = m_obstacle.GetComponent<Obstacle>();
         obs.Initialize(this);
         m_pooledObsList.Add(obs);
@@ -46,32 +47,25 @@ public class ObstacleManager : MonoBehaviour
     public void Initialize(GamePlayManager manager)
     {
         m_view = GetComponent<PhotonView>();
-
-        if (PhotonNetwork.IsMasterClient)
+        m_manager = manager;
+        m_pooledObsList = new List<Obstacle>();
+        m_activeObsList = new List<Obstacle>();
+        m_allObsBackupList = new List<GameObject>();
+        for (int i = 0; i < 10; i++)
         {
-            m_manager = manager;
-            m_pooledObsList = new List<Obstacle>();
-            m_activeObsList = new List<Obstacle>();
-            m_allObsBackupList = new List<GameObject>();
-            for (int i = 0; i < 10; i++)
-            {
-                CreateObstacle();
-            }
-            m_timer = m_cooldownTime;
+            CreateObstacle();
         }
+        m_timer = m_cooldownTime;
     }
 
     public void BeforeDestroy()
     {
-        if (PhotonNetwork.IsMasterClient)
+        for (int i = 0; i < m_pooledObsList.Count; i++)
         {
-            for (int i = 0; i < m_pooledObsList.Count; i++)
-            {
-                Destroy(m_allObsBackupList[i]);
-            }
-            m_allObsBackupList.Clear();
-            m_pooledObsList.Clear();
+            Destroy(m_allObsBackupList[i]);
         }
+        m_allObsBackupList.Clear();
+        m_pooledObsList.Clear();
     }
 
     public void CustomUpdate()
@@ -82,19 +76,22 @@ public class ObstacleManager : MonoBehaviour
             if (m_timer < 0)
             {
                 m_timer = m_cooldownTime;
-                Obstacle obs = GetObstacleFromPool();
-                obs.transform.position = new Vector3(Random.Range(-2.5f, 2.5f), 6, -1f);
-                obs.gameObject.SetActive(true);
-                obs.Activate();
-                m_activeObsList.Add(obs);
+                m_view.RPC("SpawnObstacle", RpcTarget.All, Random.Range(-2.5f, 2.5f));
             }
-            for (int i = 0; i < m_activeObsList.Count; i++)
-            {
-                m_activeObsList[i].CustomUpdate();
-            }
+        }
+        for (int i = 0; i < m_activeObsList.Count; i++)
+        {
+            m_activeObsList[i].CustomUpdate();
         }
     }
 
-    //[PunRPC]
-
+    [PunRPC]
+    void SpawnObstacle(float obsXPos)
+    {
+        Obstacle obs = GetObstacleFromPool();
+        obs.transform.position = new Vector3(obsXPos, 6, -1f);
+        obs.gameObject.SetActive(true);
+        obs.Activate();
+        m_activeObsList.Add(obs);
+    }
 }
