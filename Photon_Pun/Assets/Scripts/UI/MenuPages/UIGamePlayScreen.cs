@@ -14,7 +14,7 @@ public class UIGamePlayScreen : UIPageBase
     public override void OnStart(eMenuStates ID)
     {
         base.OnStart(ID);
-        m_gamePlayManager.Initialize();
+        m_gamePlayManager.Initialize(this);
     }
 
     public override void OnEnter()
@@ -68,5 +68,10 @@ public class UIGamePlayScreen : UIPageBase
         {
             m_navigationType = CURRENT_NAVIGATION_PRESSED.LEFT;
         }
+    }
+
+    public void GameOver()
+    {
+        MenuHandler.GetInstance().RequestState(eMenuStates.RESULTS);
     }
 }

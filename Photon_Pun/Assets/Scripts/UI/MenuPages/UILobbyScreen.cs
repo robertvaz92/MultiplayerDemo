@@ -18,15 +18,6 @@ public class UILobbyScreen : UIPageBase
         m_errorMsgText.Initialize();
     }
 
-    public override void OnExit()
-    {
-        base.OnExit();
-    }
-
-    public override void OnUpdate()
-    {
-        base.OnUpdate();
-    }
 
     public void OnClickCreate()
     {

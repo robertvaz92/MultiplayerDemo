@@ -56,6 +56,8 @@ public class ObstacleManager : MonoBehaviour
             CreateObstacle();
         }
         m_timer = m_cooldownTime;
+
+        m_view.RPC("UpdateXPos", RpcTarget.All);
     }
 
     public void BeforeDestroy()
@@ -89,9 +91,15 @@ public class ObstacleManager : MonoBehaviour
     void SpawnObstacle(float obsXPos)
     {
         Obstacle obs = GetObstacleFromPool();
-        obs.transform.position = new Vector3(obsXPos, 6, -1f);
+        obs.transform.position = new Vector3(obsXPos, 6, 0);
         obs.gameObject.SetActive(true);
         obs.Activate();
         m_activeObsList.Add(obs);
+    }
+
+    [PunRPC]
+    void UpdateXPos(PhotonMessageInfo info)
+    {
+        Debug.LogFormat("Info: {0} {1} {2}", info.Sender.NickName, info.photonView, info.SentServerTime);
     }
 }

@@ -44,6 +44,12 @@ MonoBehaviour:
   - DisableObject
   - EnableObject
   - SpawnObstacle
+  - UpdateXPos
+  - UpdatePosition
+  - DiePlayer
+  - MovePlayer
+  - OnCarClick
+  - OnCarSelect
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

@@ -9,17 +9,7 @@ public class UILoadingScreen : UIPageBase
         base.OnEnter();
         m_networkController.ConnectUsingSettings(OnConnectedToMaster);
     }
-
-    public override void OnExit()
-    {
-        base.OnExit();
-    }
-
-    public override void OnUpdate()
-    {
-        base.OnUpdate();
-    }
-
+   
     public void OnConnectedToMaster()
     {
         MenuHandler.GetInstance().RequestState(eMenuStates.LOBBY);
