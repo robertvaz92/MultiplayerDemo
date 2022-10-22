@@ -26,6 +26,8 @@ public class UIResultsScreen : UIPageBase
 
     public void OnCLickContinue()
     {
-        MenuHandler.GetInstance().RequestState(eMenuStates.PLAYER_LIST);
+        GameDataManager.m_instance.CleanUpData();
+        NetworkController.m_instance.MoveOutOfRoom();
+        MenuHandler.GetInstance().RequestState(eMenuStates.LOBBY);
     }
 }

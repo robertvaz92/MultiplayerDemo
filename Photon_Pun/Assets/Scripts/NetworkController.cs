@@ -81,6 +81,11 @@ public class NetworkController : MonoBehaviourPunCallbacks, IPunInstantiateMagic
         UpdatePlayersInfo();
     }
 
+    public void MoveOutOfRoom()
+    {
+        PhotonNetwork.LeaveRoom(true);
+    }
+
     ///////////////////////////////////////////////  LOBBY END /////////////////////////////////////////////////////
 
 

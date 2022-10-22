@@ -50,6 +50,10 @@ MonoBehaviour:
   - MovePlayer
   - OnCarClick
   - OnCarSelect
+  - OnMovePlayer
+  - DiePlayerCallback
+  - OnDiePlayer
+  - OnSpawnObs
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

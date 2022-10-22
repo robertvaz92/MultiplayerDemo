@@ -18,7 +18,6 @@ public class GamePlayManager : MonoBehaviour
     public CarPlayer m_carPlayerPrefab;
     List<CarPlayer> m_playerList;
     List<CarPlayer> m_currentPlayerList;
-    PhotonView m_view;
     UIGamePlayScreen m_gameplayScreen;
 
 
@@ -28,7 +27,6 @@ public class GamePlayManager : MonoBehaviour
     {
         m_gameplayScreen = screen;
         m_road.gameObject.SetActive(false);
-        m_view = GetComponent<PhotonView>();
     }
 
     public void StartGame()
@@ -36,6 +34,9 @@ public class GamePlayManager : MonoBehaviour
         m_road.Initialize(this);
         m_obsManager.Initialize(this);
         m_road.gameObject.SetActive(true);
+        RPC_Manager.m_instance.m_playerMoveCallback += MovePlayerCallback;
+        RPC_Manager.m_instance.m_playerDieCallback += DiePlayerCallback;
+
         SpawnPlayers();
     }
 
@@ -99,11 +100,14 @@ public class GamePlayManager : MonoBehaviour
 
     public void StopGame()
     {
+        RPC_Manager.m_instance.m_playerMoveCallback -= MovePlayerCallback;
+        RPC_Manager.m_instance.m_playerDieCallback -= DiePlayerCallback;
         m_road.gameObject.SetActive(false);
         m_obsManager.BeforeDestroy();
 
         for (int i = 0; i < m_playerList.Count; i++)
         {
+            m_playerList[i].BeforeDestroy();
            Destroy(m_playerList[i].gameObject);
         }
         m_playerList.Clear();
@@ -116,18 +120,13 @@ public class GamePlayManager : MonoBehaviour
     }
 
 
-    //// RPC FUNCTIONS
-    public void MovePlayerRPC(float xVal)
-    {
-        m_view.RPC("MovePlayer", RpcTarget.All, xVal);
-    }
+    //// RPC FUNCTIONS CALLBACKS
 
-    [PunRPC]
-    void MovePlayer(float xPos, PhotonMessageInfo info)
+    void MovePlayerCallback(Player sender, float xPos)
     {
         for (int i = 0; i < m_playerList.Count; i++)
         {
-            if (info.Sender == m_playerList[i].m_photonPlayer.m_player)
+            if (sender == m_playerList[i].m_photonPlayer.m_player)
             {
                 m_playerList[i].MovePlayer(xPos);
                 break;
@@ -135,19 +134,11 @@ public class GamePlayManager : MonoBehaviour
         }
     }
 
-
-
-    public void DiePlayerRPC()
-    {
-        m_view.RPC("DiePlayer", RpcTarget.All);
-    }
-
-    [PunRPC]
-    void DiePlayer(PhotonMessageInfo info)
+    void DiePlayerCallback(Player sender)
     {
         for (int i = 0; i < m_playerList.Count; i++)
         {
-            if (info.Sender == m_playerList[i].m_photonPlayer.m_player)
+            if (sender == m_playerList[i].m_photonPlayer.m_player)
             {
                 m_playerList[i].DiePlayer();
                 m_currentPlayerList.Remove(m_playerList[i]);

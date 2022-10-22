@@ -15,8 +15,6 @@ public class ObstacleManager : MonoBehaviour
     List<GameObject> m_allObsBackupList;
     float m_timer;
 
-    PhotonView m_view;
-
     void CreateObstacle()
     {
         //GameObject m_obstacle = PhotonNetwork.Instantiate(m_obstaclePrefab.name, new Vector3(0, -4.5f, 0), Quaternion.identity);
@@ -46,7 +44,6 @@ public class ObstacleManager : MonoBehaviour
 
     public void Initialize(GamePlayManager manager)
     {
-        m_view = GetComponent<PhotonView>();
         m_manager = manager;
         m_pooledObsList = new List<Obstacle>();
         m_activeObsList = new List<Obstacle>();
@@ -57,11 +54,13 @@ public class ObstacleManager : MonoBehaviour
         }
         m_timer = m_cooldownTime;
 
-        m_view.RPC("UpdateXPos", RpcTarget.All);
+        RPC_Manager.m_instance.m_obstacleSpawnCallback += SpawnObstacle;
     }
 
     public void BeforeDestroy()
     {
+        RPC_Manager.m_instance.m_obstacleSpawnCallback -= SpawnObstacle;
+
         for (int i = 0; i < m_pooledObsList.Count; i++)
         {
             Destroy(m_allObsBackupList[i]);
@@ -78,7 +77,7 @@ public class ObstacleManager : MonoBehaviour
             if (m_timer < 0)
             {
                 m_timer = m_cooldownTime;
-                m_view.RPC("SpawnObstacle", RpcTarget.All, Random.Range(-2.5f, 2.5f));
+                RPC_Manager.m_instance.SpawnObstacle(Random.Range(-2.5f, 2.5f));
             }
         }
         for (int i = 0; i < m_activeObsList.Count; i++)
@@ -87,7 +86,6 @@ public class ObstacleManager : MonoBehaviour
         }
     }
 
-    [PunRPC]
     void SpawnObstacle(float obsXPos)
     {
         Obstacle obs = GetObstacleFromPool();
@@ -95,11 +93,5 @@ public class ObstacleManager : MonoBehaviour
         obs.gameObject.SetActive(true);
         obs.Activate();
         m_activeObsList.Add(obs);
-    }
-
-    [PunRPC]
-    void UpdateXPos(PhotonMessageInfo info)
-    {
-        Debug.LogFormat("Info: {0} {1} {2}", info.Sender.NickName, info.photonView, info.SentServerTime);
     }
 }

@@ -27,6 +27,11 @@ public class GameDataManager : MonoBehaviour
         m_photonPlayers = new List<PhotonPlayer>();
     }
 
+    public void CleanUpData()
+    {
+        m_photonPlayers.Clear();
+    }
+
     public void CreatePlayerData(Player player, CAR_TYPE cType)
     {
         PhotonPlayer p = new PhotonPlayer();

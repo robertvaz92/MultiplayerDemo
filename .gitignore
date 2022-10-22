@@ -53,3 +53,13 @@ Photon_Pun/Logs
 Photon_Pun/obj
 Photon_Pun/UserSettings
 Photon_Pun/Temp
+Photon_Pun/PhotonRealtime.csproj
+Photon_Pun/PhotonUnityNetworking.csproj
+Photon_Pun/PhotonUnityNetworking.Demos.csproj
+Photon_Pun/PhotonUnityNetworking.Editor.csproj
+Photon_Pun/PhotonUnityNetworking.Utilities.csproj
+Photon_Pun/PhotonUnityNetworking.Utilities.Culling.Editor.csproj
+Photon_Pun/PhotonUnityNetworking.Utilities.PhotonPlayer.Editor.csproj
+Photon_Pun/PunDemos.DemoHubEditor.csproj
+Photon_Pun/PunDemos.DemoSlotcarEditor.csproj
+Photon_Pun/Photon_Pun.sln

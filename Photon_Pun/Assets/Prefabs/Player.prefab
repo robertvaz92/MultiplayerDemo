@@ -113,7 +113,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 0.5}
+  m_Size: {x: 0.7, y: 0.79, z: 0.5}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &230011405427940551
 MonoBehaviour:
@@ -128,8 +128,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_playerMeshRenderer: {fileID: 2151826949206667011}
-  m_playerActiveMat: {fileID: 2100000, guid: 7deb542b029ce18419a7c7c5d6cbe8e7, type: 2}
-  m_playerDeadMat: {fileID: 2100000, guid: 1908c8d8297ed9348ac792cbd450f3ed, type: 2}
   m_manager: {fileID: 0}
   m_leftCar: {fileID: 0}
   m_rightCar: {fileID: 0}

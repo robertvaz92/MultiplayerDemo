@@ -51,7 +51,7 @@ public class CarPlayer : MonoBehaviour
         if (m_leftCar != null)
         {
             m_opponentPos = m_leftCar.transform.position;
-            if ((m_pos.x - m_opponentPos.x) > 0.7f)
+            if ((m_pos.x - m_opponentPos.x) > 0.6f)
             {
                 m_canMove = true;
             }
@@ -63,7 +63,7 @@ public class CarPlayer : MonoBehaviour
 
         if (m_canMove)
         {
-            m_manager.MovePlayerRPC(m_pos.x);
+            RPC_Manager.m_instance.MovePlayerRPC(m_pos.x);
         }
     }
 
@@ -75,7 +75,7 @@ public class CarPlayer : MonoBehaviour
         if (m_rightCar != null)
         {
             m_opponentPos = m_rightCar.transform.position;
-            if ((m_opponentPos.x - m_pos.x) > 0.7f)
+            if ((m_opponentPos.x - m_pos.x) > 0.6f)
             {
                 m_canMove = true;
             }
@@ -86,7 +86,7 @@ public class CarPlayer : MonoBehaviour
         }
         if (m_canMove)
         {
-            m_manager.MovePlayerRPC(m_pos.x);
+            RPC_Manager.m_instance.MovePlayerRPC(m_pos.x);
         }
     }
 
@@ -120,7 +120,7 @@ public class CarPlayer : MonoBehaviour
         {
             if (other.gameObject.layer == m_obsLayer)
             {
-                m_manager.DiePlayerRPC();
+                RPC_Manager.m_instance.DiePlayerRPC();
             }
         }
     }
