@@ -7,19 +7,26 @@ public class GameDataManager : MonoBehaviour
 {
     public static GameDataManager m_instance { get; private set; }
 
-    //Car Textures
+    [Header("Car Textures")]
     public Texture2D m_blueCarTexture;
     public Texture2D m_greenCarTexture;
     public Texture2D m_yellowCarTexture;
     public Texture2D m_orangeCarTexture;
 
+    [Header("GamePlay Config Data")]
+    public float m_playerMoveSpeed = 1.5f;
+    public float m_playerCollisionDistance = 0.6f;
+    public float m_roadEdgeXValue = -2.5f;
+    public float m_obstacleSpawnGap = 1.25f;
+
+    //Photon Player Local copy with custom data
+    public List<PhotonPlayer> m_photonPlayers;
 
     //DATA FOR THE RESULTS UI SCREEN 
     public string m_winnerName { get; set; }
     public GAME_RESULTS m_results { get; set; }
 
 
-    public List<PhotonPlayer> m_photonPlayers;
 
     private void Awake()
     {

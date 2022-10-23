@@ -20,11 +20,19 @@ public enum GAME_RESULTS
     LOSE
 }
 
+public enum PLAYER_STATE
+{
+    LOBBY,
+    GAME_PLAY
+}
+
 
 public class PhotonPlayer
 {
     public Player m_player;
     public CAR_TYPE m_selectedCarType;
+    public PLAYER_STATE m_currentState;
+    public float m_xPos;
 }
 
 public class Utilities

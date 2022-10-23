@@ -7,14 +7,14 @@ using Photon.Pun;
 public class ObstacleManager : MonoBehaviour
 {
     public Obstacle m_obstaclePrefab;
-    public float m_cooldownTime = 2;
 
     public GamePlayManager m_manager { get; private set; }
     List<Obstacle> m_pooledObsList;
     List<Obstacle> m_activeObsList;
     List<GameObject> m_allObsBackupList;
     float m_timer;
-
+    int m_playerIndex;
+    float m_obsSpawnXpos;
     void CreateObstacle()
     {
         //GameObject m_obstacle = PhotonNetwork.Instantiate(m_obstaclePrefab.name, new Vector3(0, -4.5f, 0), Quaternion.identity);
@@ -52,7 +52,7 @@ public class ObstacleManager : MonoBehaviour
         {
             CreateObstacle();
         }
-        m_timer = m_cooldownTime;
+        m_timer = GameDataManager.m_instance.m_obstacleSpawnGap;
 
         RPC_Manager.m_instance.m_obstacleSpawnCallback += SpawnObstacle;
     }
@@ -76,8 +76,15 @@ public class ObstacleManager : MonoBehaviour
             m_timer -= Time.deltaTime;
             if (m_timer < 0)
             {
-                m_timer = m_cooldownTime;
-                RPC_Manager.m_instance.SpawnObstacle(Random.Range(-2.5f, 2.5f));
+                m_obsSpawnXpos = 0;
+                m_timer = GameDataManager.m_instance.m_obstacleSpawnGap;
+
+                if (NetworkController.m_instance.m_players != null && NetworkController.m_instance.m_players.Length > 1)
+                {
+                    m_playerIndex = Random.Range(0, GameDataManager.m_instance.m_photonPlayers.Count);
+                    m_obsSpawnXpos = GameDataManager.m_instance.m_photonPlayers[m_playerIndex].m_xPos;
+                }
+                RPC_Manager.m_instance.SpawnObstacle(m_obsSpawnXpos);
             }
         }
         for (int i = 0; i < m_activeObsList.Count; i++)

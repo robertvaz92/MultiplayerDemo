@@ -46,17 +46,17 @@ public class CarPlayer : MonoBehaviour
     {
         m_canMove = false;
         m_pos = transform.position;
-        m_pos.x -= Time.deltaTime * 1;
+        m_pos.x -= Time.deltaTime * GameDataManager.m_instance.m_playerMoveSpeed;
 
         if (m_leftCar != null)
         {
             m_opponentPos = m_leftCar.transform.position;
-            if ((m_pos.x - m_opponentPos.x) > 0.6f)
+            if ((m_pos.x - m_opponentPos.x) > GameDataManager.m_instance.m_playerCollisionDistance)
             {
                 m_canMove = true;
             }
         }
-        else if (m_pos.x > -2.5f)
+        else if (m_pos.x > -GameDataManager.m_instance.m_roadEdgeXValue)
         {
             m_canMove = true;
         }
@@ -71,16 +71,16 @@ public class CarPlayer : MonoBehaviour
     {
         m_canMove = false;
         m_pos = transform.position;
-        m_pos.x += Time.deltaTime * 1;
+        m_pos.x += Time.deltaTime * GameDataManager.m_instance.m_playerMoveSpeed;
         if (m_rightCar != null)
         {
             m_opponentPos = m_rightCar.transform.position;
-            if ((m_opponentPos.x - m_pos.x) > 0.6f)
+            if ((m_opponentPos.x - m_pos.x) > GameDataManager.m_instance.m_playerCollisionDistance)
             {
                 m_canMove = true;
             }
         }
-        else if (m_pos.x < 2.5f)
+        else if (m_pos.x < GameDataManager.m_instance.m_roadEdgeXValue)
         {
             m_canMove = true;
         }
@@ -93,6 +93,7 @@ public class CarPlayer : MonoBehaviour
     public void MovePlayer(float x)
     {
         m_movePos = transform.position;
+        m_photonPlayer.m_xPos = x;
         m_movePos.x = x;
         transform.position = m_movePos;
     }
