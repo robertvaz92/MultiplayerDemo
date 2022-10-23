@@ -505,8 +505,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6c140da067be51478d1516ae460cb3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_speed: 0.25
-  m_obsSpeed: 2.92
   m_road: {fileID: 1916029376}
   m_obsManager: {fileID: 1882195005}
   m_carPlayerPrefab: {fileID: 230011405427940551, guid: d65f9169f36596e4384ced7f77a40ffb, type: 3}
@@ -862,7 +860,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 85.3
+  m_fontSize: 57.3
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -2624,7 +2622,7 @@ MonoBehaviour:
       m_Calls: []
   m_Sprite: {fileID: 21300000, guid: 87b790338e66b644a95ab32de522be35, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -2774,7 +2772,7 @@ MonoBehaviour:
       m_Calls: []
   m_Sprite: {fileID: 21300000, guid: d8fb49ad447025f409b7c69f2d56b248, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -2904,7 +2902,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 85.3
+  m_fontSize: 57.3
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -3583,6 +3581,7 @@ GameObject:
   - component: {fileID: 1173873506}
   - component: {fileID: 1173873508}
   - component: {fileID: 1173873507}
+  - component: {fileID: 1173873509}
   m_Layer: 0
   m_Name: RPCManager
   m_TagString: Untagged
@@ -3623,7 +3622,8 @@ MonoBehaviour:
   Synchronization: 3
   OwnershipTransfer: 0
   observableSearch: 2
-  ObservedComponents: []
+  ObservedComponents:
+  - {fileID: 1173873509}
   sceneViewId: 3
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -3637,6 +3637,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b658b5f88de96e540b383bb087a7552e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1173873509
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1173873505}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d8708da6e7db7140af2ff2c3fbe1c4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1199961524
@@ -3758,7 +3770,7 @@ MonoBehaviour:
       m_Calls: []
   m_Sprite: {fileID: 21300000, guid: e5d2802ee52fbe648a947892d0e4b923, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -4043,7 +4055,7 @@ MonoBehaviour:
       m_Calls: []
   m_Sprite: {fileID: 21300000, guid: 8f6fde2fdc52f6d4b92b263329a0ce08, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -6061,7 +6073,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_obstaclePrefab: {fileID: 7453494749900833930, guid: eea2c4a0e9150f147b481a6cf882626f, type: 3}
-  m_cooldownTime: 1.5
 --- !u!1 &1908664415
 GameObject:
   m_ObjectHideFlags: 0

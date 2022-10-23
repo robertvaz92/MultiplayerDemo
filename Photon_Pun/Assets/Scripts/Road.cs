@@ -16,7 +16,7 @@ public class Road : MonoBehaviour
     // Update is called once per frame
     public void CustomUpdate()
     {
-        m_matOffset.y += Time.deltaTime * m_gamePlayManager.m_speed;
+        m_matOffset.y += Time.deltaTime * GameDataManager.m_instance.m_roadMoveSpeed;
         m_material.mainTextureOffset = m_matOffset;
         if (m_matOffset.y >= 1)
         {

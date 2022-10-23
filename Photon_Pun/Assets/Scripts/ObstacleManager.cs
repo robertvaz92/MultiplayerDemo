@@ -61,7 +61,7 @@ public class ObstacleManager : MonoBehaviour
     {
         RPC_Manager.m_instance.m_obstacleSpawnCallback -= SpawnObstacle;
 
-        for (int i = 0; i < m_pooledObsList.Count; i++)
+        for (int i = 0; i < m_allObsBackupList.Count; i++)
         {
             Destroy(m_allObsBackupList[i]);
         }
@@ -83,6 +83,10 @@ public class ObstacleManager : MonoBehaviour
                 {
                     m_playerIndex = Random.Range(0, GameDataManager.m_instance.m_photonPlayers.Count);
                     m_obsSpawnXpos = GameDataManager.m_instance.m_photonPlayers[m_playerIndex].m_xPos;
+                }
+                else
+                {
+                    m_obsSpawnXpos = Random.Range(-GameDataManager.m_instance.m_roadEdgeXValue, GameDataManager.m_instance.m_roadEdgeXValue);
                 }
                 RPC_Manager.m_instance.SpawnObstacle(m_obsSpawnXpos);
             }

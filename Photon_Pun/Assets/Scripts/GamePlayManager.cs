@@ -7,8 +7,6 @@ using System;
 
 public class GamePlayManager : MonoBehaviour
 {
-    public float m_speed = 0.25f;
-    public float m_obsSpeed = 2f;
     public Road m_road;
     public ObstacleManager m_obsManager;
 
@@ -19,7 +17,7 @@ public class GamePlayManager : MonoBehaviour
     List<CarPlayer> m_playerList;
     List<CarPlayer> m_currentPlayerList;
     UIGamePlayScreen m_gameplayScreen;
-
+    float m_xPos;
 
 
 
@@ -47,10 +45,11 @@ public class GamePlayManager : MonoBehaviour
         m_currentPlayerList = new List<CarPlayer>();
         for (int i = 0; i < photonPlayers.Count; i++)
         {
-            CarPlayer p = Instantiate<CarPlayer>(m_carPlayerPrefab, new Vector3(GetXPosVal(i, photonPlayers.Count, 1.3f), -4.5f, 0), Quaternion.identity);
+            m_xPos = GetXPosVal(i, photonPlayers.Count, 1.3f);
+            CarPlayer p = Instantiate<CarPlayer>(m_carPlayerPrefab, new Vector3(m_xPos, -4.5f, 0), Quaternion.identity);
             m_playerList.Add(p);
             m_currentPlayerList.Add(p);
-            p.Initialize(this, photonPlayers[i]);
+            p.Initialize(this, photonPlayers[i], m_xPos);
         }
 
         //Assign Side by side Players

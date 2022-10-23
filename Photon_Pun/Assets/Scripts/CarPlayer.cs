@@ -22,7 +22,7 @@ public class CarPlayer : MonoBehaviour
     bool m_canMove;
     LayerMask m_obsLayer;
 
-    public void Initialize(GamePlayManager manager, PhotonPlayer photonPlayer)
+    public void Initialize(GamePlayManager manager, PhotonPlayer photonPlayer, float xPos)
     {
         m_manager = manager;
         m_photonPlayer = photonPlayer;
@@ -34,6 +34,7 @@ public class CarPlayer : MonoBehaviour
             m_manager.OnLeftButtonPress += OnPressLeft;
             m_manager.OnRighttButtonPress += OnPressRight;
         }
+        m_photonPlayer.m_xPos = xPos;
     }
 
     public void BeforeDestroy()
@@ -125,4 +126,19 @@ public class CarPlayer : MonoBehaviour
             }
         }
     }
+    /*
+    private void Update()
+    {
+        m_movePos = transform.position;
+        if (false && m_photonPlayer.m_player.IsLocal)
+        {
+            m_movePos.x = m_photonPlayer.m_xPos;
+        }
+        else
+        {
+            m_movePos.x = Mathf.Lerp(m_movePos.x, m_photonPlayer.m_xPos, 0.5f);
+        }
+        transform.position = m_movePos;
+    }
+*/
 }

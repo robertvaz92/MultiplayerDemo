@@ -13,11 +13,15 @@ public class GameDataManager : MonoBehaviour
     public Texture2D m_yellowCarTexture;
     public Texture2D m_orangeCarTexture;
 
-    [Header("GamePlay Config Data")]
-    public float m_playerMoveSpeed = 1.5f;
-    public float m_playerCollisionDistance = 0.6f;
-    public float m_roadEdgeXValue = -2.5f;
-    public float m_obstacleSpawnGap = 1.25f;
+    // GamePlay Config Data
+    public float m_playerMoveSpeed { get; private set; }
+    public float m_playerCollisionDistance { get; private set; }
+
+    public float m_roadMoveSpeed { get; private set; }
+    public float m_roadEdgeXValue { get; private set; }
+    
+    public float m_obstacleMoveSpeed { get; private set; }
+    public float m_obstacleSpawnGap { get; private set; }
 
     //Photon Player Local copy with custom data
     public List<PhotonPlayer> m_photonPlayers;
@@ -32,6 +36,20 @@ public class GameDataManager : MonoBehaviour
     {
         m_instance = this;
         m_photonPlayers = new List<PhotonPlayer>();
+
+        SetGamePlayValues();
+    }
+
+    void SetGamePlayValues()
+    {
+        m_playerMoveSpeed = 1.5f;
+        m_playerCollisionDistance = 0.6f;
+
+        m_roadMoveSpeed = 0.1f;
+        m_roadEdgeXValue = 2.5f;
+        
+        m_obstacleMoveSpeed = 3.15f;
+        m_obstacleSpawnGap = 1.25f;
     }
 
     public void CleanUpData()
