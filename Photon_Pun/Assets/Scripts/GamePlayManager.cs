@@ -21,7 +21,7 @@ public class GamePlayManager : MonoBehaviour
     UIGamePlayScreen m_gameplayScreen;
 
 
-    
+
 
     public void Initialize(UIGamePlayScreen screen)
     {
@@ -47,7 +47,7 @@ public class GamePlayManager : MonoBehaviour
         m_currentPlayerList = new List<CarPlayer>();
         for (int i = 0; i < photonPlayers.Count; i++)
         {
-            CarPlayer p = Instantiate<CarPlayer>(m_carPlayerPrefab, new Vector3(GetXPosVal(i+1, photonPlayers.Count), -4.5f, 0), Quaternion.identity);
+            CarPlayer p = Instantiate<CarPlayer>(m_carPlayerPrefab, new Vector3(GetXPosVal(i, photonPlayers.Count, 1.3f), -4.5f, 0), Quaternion.identity);
             m_playerList.Add(p);
             m_currentPlayerList.Add(p);
             p.Initialize(this, photonPlayers[i]);
@@ -67,16 +67,10 @@ public class GamePlayManager : MonoBehaviour
         }
     }
 
-    float GetXPosVal(int playerNumber, int maxPlayer)
+    
+    float GetXPosVal(int playerIndex, int maxPlayer, float distBetweenPlayer)
     {
-        float retVal = 1;
-
-        if (playerNumber == 1)
-        {
-            retVal = -1;
-        }
-
-        return retVal;
+       return ((((playerIndex * 2) - (maxPlayer - 1)) / 2f) * distBetweenPlayer);
     }
 
     void CheckForGameOver()
