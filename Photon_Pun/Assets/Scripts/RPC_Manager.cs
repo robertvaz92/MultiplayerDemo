@@ -5,13 +5,17 @@ using UnityEngine;
 using System;
 using Photon.Realtime;
 
-public class RPC_Manager : MonoBehaviour
+/// <summary>
+/// To Broadcast the function call to all the players, including the sender
+/// </summary>
+public class RPC_Manager : MonoBehaviour//, IPunObservable
 {
     public static RPC_Manager m_instance { get; private set; }
 
     PhotonView m_view;
     public Action<Player, CAR_TYPE> m_carSelectCallback;
     public Action<Player, float> m_playerMoveCallback;
+    public Action<Player> m_playerLeaveLobbyCallback;
     public Action<Player> m_playerDieCallback;
     public Action<float> m_obstacleSpawnCallback;
 
@@ -49,6 +53,19 @@ public class RPC_Manager : MonoBehaviour
         m_playerMoveCallback?.Invoke(info.Sender, xPos);
     }
 
+    /*
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.IsWriting)
+        {
+            stream.SendNext(0);
+        }
+        else if(stream.IsReading)
+        {
+            m_playerMoveCallback?.Invoke(info.Sender, (float)stream.ReceiveNext());
+        }
+    }
+    */
 
     //////////////////////////////// DIE PLAYER RPC /////////////////////////////
 
@@ -74,6 +91,8 @@ public class RPC_Manager : MonoBehaviour
     {
         m_obstacleSpawnCallback?.Invoke(xPos);
     }
+
+   
 
     //////////////////////////////// NEXT RPC /////////////////////////////
 }

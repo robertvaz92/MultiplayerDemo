@@ -14,11 +14,11 @@ public class UIResultsScreen : UIPageBase
         switch (GameDataManager.m_instance.m_results)
         {
             case GAME_RESULTS.WIN:
-                m_titleText.text = "You Won!";
+                m_titleText.text = "YOU WON!";
                 m_infoText.text = string.Format("Congratulation! \n {0} \n On Your Victory", GameDataManager.m_instance.m_winnerName);
                 break;
             case GAME_RESULTS.LOSE:
-                m_titleText.text = "You Lost!";
+                m_titleText.text = "YOU LOST!";
                 m_infoText.text = string.Format("{0} has won the game \n Better luck next time", GameDataManager.m_instance.m_winnerName);
                 break;
         }
@@ -27,7 +27,7 @@ public class UIResultsScreen : UIPageBase
     public void OnCLickContinue()
     {
         GameDataManager.m_instance.CleanUpData();
-        NetworkController.m_instance.MoveOutOfRoom();
-        MenuHandler.GetInstance().RequestState(eMenuStates.LOBBY);
+        //NetworkController.m_instance.MoveOutOfRoom();
+        MenuHandler.GetInstance().RequestState(MenuStates.PLAYER_LIST);
     }
 }

@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
-using System;
 
-public enum eMenuStates
+public enum MenuStates
 {
 	LOADING,
 	LOBBY,
@@ -13,7 +12,7 @@ public enum eMenuStates
 
 public class UIPageBase : MonoBehaviour
 {
-    public eMenuStates PageID { get; private set; }
+    public MenuStates PageID { get; private set; }
 	protected NetworkController m_networkController { get; private set; }
 
 	public virtual void OnEnter()
@@ -29,7 +28,7 @@ public class UIPageBase : MonoBehaviour
 	}
 
 
-	public virtual void OnStart(eMenuStates ID)
+	public virtual void OnStart(MenuStates ID)
 	{
         PageID = ID;
         MenuHandler.GetInstance().RegisterPage(this);

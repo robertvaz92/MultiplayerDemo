@@ -44,7 +44,7 @@ public class MenuHandler
         }
     }
 
-    public bool IsStateExist(eMenuStates state)
+    public bool IsStateExist(MenuStates state)
     {
         for (int i = 0; i < m_pages.Count; i++)
         {
@@ -57,7 +57,7 @@ public class MenuHandler
         return false;
     }
 
-    public void RequestState(eMenuStates state)
+    public void RequestState(MenuStates state)
     {
         m_requestedPage = GetState(state);
 
@@ -90,7 +90,7 @@ public class MenuHandler
         }
     }
 
-    UIPageBase GetState(eMenuStates state)
+    UIPageBase GetState(MenuStates state)
     {
         for (int i = 0; i < m_pages.Count; i++)
         {

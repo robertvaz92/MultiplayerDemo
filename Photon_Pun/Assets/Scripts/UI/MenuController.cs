@@ -18,18 +18,18 @@ public class MenuController : MonoBehaviour
 	}
 	void Start ()
 	{
-        m_loadingScreen.OnStart(eMenuStates.LOADING);
-        m_lobbyScreen.OnStart(eMenuStates.LOBBY);
-        m_playerListScreen.OnStart(eMenuStates.PLAYER_LIST);
-        m_gameplayScreen.OnStart(eMenuStates.GAMEPLAY);
-        m_resultsScreen.OnStart(eMenuStates.RESULTS);
+        m_loadingScreen.OnStart(MenuStates.LOADING);
+        m_lobbyScreen.OnStart(MenuStates.LOBBY);
+        m_playerListScreen.OnStart(MenuStates.PLAYER_LIST);
+        m_gameplayScreen.OnStart(MenuStates.GAMEPLAY);
+        m_resultsScreen.OnStart(MenuStates.RESULTS);
 
         SetFirstPage();
 	}
 
 	void SetFirstPage()
 	{
-		MenuHandler.GetInstance().RequestState(eMenuStates.LOADING);
+		MenuHandler.GetInstance().RequestState(MenuStates.LOADING);
 	}
 	
 	void Update ()

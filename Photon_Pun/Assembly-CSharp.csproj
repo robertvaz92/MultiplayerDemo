@@ -8,8 +8,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <RootNamespace>
-    </RootNamespace>
+    <RootNamespace></RootNamespace>
     <ProjectGuid>{572D96E5-2316-3631-961C-1C71139A9FD2}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -75,6 +74,7 @@
     <Compile Include="Assets\Photon\PhotonLibs\WebSocket\SocketWebTcp.cs" />
     <Compile Include="Assets\unity-ui-extensions\Scripts\Layout\IScrollSnap.cs" />
     <Compile Include="Assets\unity-ui-extensions\Scripts\Effects\MonoSpacing.cs" />
+    <Compile Include="Assets\Scripts\UI\MenuPages\UILobbyCarMove.cs" />
     <Compile Include="Assets\unity-ui-extensions\Scripts\Controls\ReorderableList\ReorderableListElement.cs" />
     <Compile Include="Assets\unity-ui-extensions\Scripts\Effects\Gradient.cs" />
     <Compile Include="Assets\unity-ui-extensions\Scripts\Controls\ReorderableList\ReorderableList.cs" />
@@ -109,6 +109,7 @@
     <Compile Include="Assets\Scripts\ObstacleManager.cs" />
     <Compile Include="Assets\unity-ui-extensions\Scripts\Controls\ColorPicker\TiltWindow.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark04.cs" />
+    <Compile Include="Assets\Scripts\HelperScripts\LoaderCircle.cs" />
     <Compile Include="Assets\unity-ui-extensions\Scripts\Controls\ColorPicker\HSVUtil.cs" />
     <Compile Include="Assets\unity-ui-extensions\Scripts\Controls\UI_Knob.cs" />
     <Compile Include="Assets\unity-ui-extensions\Examples\FancyScrollView\02_CellEventHandling\Example02ScrollView.cs" />
@@ -127,6 +128,7 @@
     <Compile Include="Assets\Scripts\UI\MenuHandler.cs" />
     <Compile Include="Assets\Scripts\Obstacle.cs" />
     <Compile Include="Assets\unity-ui-extensions\Scripts\Utilities\DragCorrector.cs" />
+    <Compile Include="Assets\Scripts\Test.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeB.cs" />
     <Compile Include="Assets\unity-ui-extensions\Scripts\Utilities\switchToRectTransform.cs" />
     <Compile Include="Assets\unity-ui-extensions\Scripts\Utilities\SelectableScaler.cs" />
@@ -168,6 +170,7 @@
     <Compile Include="Assets\Scripts\UI\MenuController.cs" />
     <Compile Include="Assets\unity-ui-extensions\Examples\MenuExample\Scripts\Menus\AwesomeMenu.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventCheck.cs" />
+    <Compile Include="Assets\Scripts\GameStateOnNetwork.cs" />
     <Compile Include="Assets\unity-ui-extensions\Scripts\Primitives\UIPrimitiveBase.cs" />
     <Compile Include="Assets\unity-ui-extensions\Scripts\Layout\TableLayoutGroup.cs" />
     <Compile Include="Assets\unity-ui-extensions\Scripts\Layout\ScrollSnap.cs" />
@@ -290,8 +293,6 @@
     <Compile Include="Assets\unity-ui-extensions\Examples\FancyScrollView\03_InfiniteScroll\Example03Scene.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
     <Compile Include="Assets\unity-ui-extensions\Scripts\Controls\ColorPicker\ColorImage.cs" />
-    <Compile Include="Assets\Scripts\Test.cs" />
-    <Compile Include="Assets\Scripts\PlayerStateOnNetwork.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\unity-ui-extensions\Shaders\UIAdditive.shader" />
@@ -311,6 +312,7 @@
     <None Include="Assets\unity-ui-extensions\Shaders\UI Particle Alpha Blend.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF SSD.shader" />
     <None Include="Assets\Photon\PhotonLibs\WebSocket\websocket-sharp.dll" />
+    <None Include="Assets\Font\roboto\Apache License.txt" />
     <None Include="Assets\unity-ui-extensions\Shaders\SoftMaskShader.shader" />
     <None Include="Assets\unity-ui-extensions\Shaders\UI Particle Premultiply Blend.shader" />
     <None Include="Assets\unity-ui-extensions\Shaders\UI Particle VertexLit Blended.shader" />

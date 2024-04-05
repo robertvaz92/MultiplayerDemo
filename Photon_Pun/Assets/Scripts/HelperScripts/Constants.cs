@@ -4,10 +4,10 @@ using UnityEngine;
 
 public enum LOBBY_TYPE
 {
-    eCREATE,
-    eJOIN
+    CREATE,
+    JOIN,
+    LEAVE
 }
-
 
 public enum CLICK_ACTION_TYPE
 {
@@ -20,6 +20,26 @@ public enum CURRENT_NAVIGATION_PRESSED
     NONE,
     LEFT,
     RIGHT
+}
+
+public enum NETWORK_RESPONSE_STATUS
+{
+    SUCCESS,
+    FAILED
+}
+
+public class NetworkResponse
+{
+    public NETWORK_RESPONSE_STATUS m_status;
+    public string m_message;
+    public short m_code;
+
+    public NetworkResponse(NETWORK_RESPONSE_STATUS status, string message, short code)
+    {
+        m_status = status;
+        m_message = message;
+        m_code = code;
+    }
 }
 
 public class Constants 

@@ -89,6 +89,11 @@ public class GamePlayManager : MonoBehaviour
 
             m_gameplayScreen.GameOver();
         }
+        else if (m_currentPlayerList.Count == 0)
+        {
+            GameDataManager.m_instance.m_results = GAME_RESULTS.LOSE;
+            m_gameplayScreen.GameOver();
+        }
     }
 
     public void StopGame()
@@ -100,7 +105,7 @@ public class GamePlayManager : MonoBehaviour
 
         for (int i = 0; i < m_playerList.Count; i++)
         {
-            m_playerList[i].BeforeDestroy();
+            m_playerList[i].CleanUpBeforeDestroy();
            Destroy(m_playerList[i].gameObject);
         }
         m_playerList.Clear();

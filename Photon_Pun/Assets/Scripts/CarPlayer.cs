@@ -37,7 +37,7 @@ public class CarPlayer : MonoBehaviour
         m_photonPlayer.m_xPos = xPos;
     }
 
-    public void BeforeDestroy()
+    public void CleanUpBeforeDestroy()
     {
         m_manager.OnLeftButtonPress -= OnPressLeft;
         m_manager.OnRighttButtonPress -= OnPressRight;
@@ -112,7 +112,7 @@ public class CarPlayer : MonoBehaviour
         }
 
         m_playerMeshRenderer.material.color = Color.red;
-        BeforeDestroy();
+        CleanUpBeforeDestroy();
         m_isDead = true;
     }
 

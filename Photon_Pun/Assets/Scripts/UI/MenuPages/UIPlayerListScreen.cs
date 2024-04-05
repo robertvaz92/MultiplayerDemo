@@ -11,8 +11,10 @@ public class UIPlayerListScreen : UIPageBase
 {
     public TextMeshProUGUI m_nameText;
     public GameObject m_selectCarPanel;
+    public GameObject m_waitingPlayersToJoinPanel;
     public CarSelection[] m_carSelection;
-    WaitForSeconds m_oneSec;
+    public GameObject m_exitConfirmation;
+    public GameObject m_startGameButton;
     string m_playerNames;
     Player[] m_players;
     List<Player> m_playersList;
@@ -21,10 +23,14 @@ public class UIPlayerListScreen : UIPageBase
     public override void OnEnter()
     {
         base.OnEnter();
-        m_oneSec = new WaitForSeconds(1);
+        m_exitConfirmation.SetActive(false);
+        m_startGameButton.SetActive(false);
         m_playerCount = 0;
         m_allPlayersJoined = false;
         m_playersList = new List<Player>();
+
+        DisplayPanel(m_selectCarPanel, true);
+        DisplayPanel(m_waitingPlayersToJoinPanel, false);
 
         for (int i = 0; i < m_carSelection.Length; i++)
         {
@@ -36,6 +42,12 @@ public class UIPlayerListScreen : UIPageBase
     public override void OnExit()
     {
         RPC_Manager.m_instance.m_carSelectCallback -= OnCarClick;
+
+        for (int i = 0; i < m_carSelection.Length; i++)
+        {
+            m_carSelection[i].RemovePlayer();
+        }
+
         base.OnExit();
     }
 
@@ -43,6 +55,7 @@ public class UIPlayerListScreen : UIPageBase
     {
         m_playerNames = "";
         m_playerCount = 0;
+        m_allPlayersJoined = false;
 
         m_players = NetworkController.m_instance.m_players;
         if (m_players != null)
@@ -56,28 +69,34 @@ public class UIPlayerListScreen : UIPageBase
             m_playerCount = m_players.Length;
         }
 
-        if (m_playerCount > 1)
+        if (m_playerCount >= 1)
         {
             m_allPlayersJoined = true;
         }
     }
 
-    void DisplayCarSelection(bool shouldDisplay)
+    void DisplayPanel(GameObject panel, bool shouldDisplay)
     {
-        m_selectCarPanel.SetActive(shouldDisplay);
+        if (panel.activeSelf != shouldDisplay)
+        {
+            panel.SetActive(shouldDisplay);
+        }
     }
 
     //Change this implementation to Trigger based
     public override void OnUpdate()
     {
         UpdatePlayerList();
+
         if (m_allPlayersJoined)
         {
-            DisplayCarSelection(true);
+            DisplayPanel(m_selectCarPanel, true);
+            DisplayPanel(m_waitingPlayersToJoinPanel, false);
         }
         else
         {
-            DisplayCarSelection(false);
+            DisplayPanel(m_selectCarPanel, false);
+            DisplayPanel(m_waitingPlayersToJoinPanel, true);
             for (int i = 0; i < m_carSelection.Length; i++)
             {
                 m_carSelection[i].RemovePlayer();
@@ -131,7 +150,33 @@ public class UIPlayerListScreen : UIPageBase
             {
                 m_carSelection[i].SavePlayerData();
             }
-            MenuHandler.GetInstance().RequestState(eMenuStates.GAMEPLAY);
+
+            if (NetworkController.m_instance.m_localPlayer.IsMasterClient)
+            {
+                m_startGameButton.SetActive(true);
+            }
         }
+    }
+
+
+    public void OnClickStartGame()
+    {
+        MenuHandler.GetInstance().RequestState(MenuStates.GAMEPLAY);
+    }
+
+    public void OnClickCloseButton()
+    {
+        m_exitConfirmation.SetActive(true);
+    }
+
+    public void OnClickExitConfirm()
+    {
+        m_networkController.LobbyOperation(PlayerPrefs.GetString(Constants.m_prefsPlayerName), 0, LOBBY_TYPE.LEAVE, "", null);
+        MenuHandler.GetInstance().RequestState(MenuStates.LOBBY);
+    }
+
+    public void OnClickExitCancel()
+    {
+        m_exitConfirmation.SetActive(false);
     }
 }
